@@ -24,9 +24,9 @@ public class ClockDisplay
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
-        updateDisplay();
+        get12HourInternalDisplay();
     }
 
     /**
@@ -36,7 +36,7 @@ public class ClockDisplay
      */
     public ClockDisplay(int hour, int minute)
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
         setTime(hour, minute);
     }
@@ -51,7 +51,7 @@ public class ClockDisplay
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
         }
-        updateDisplay();
+        get12HourInternalDisplay();
     }
 
     /**
@@ -62,7 +62,7 @@ public class ClockDisplay
     {
         hours.setValue(hour);
         minutes.setValue(minute);
-        updateDisplay();
+        get12HourInternalDisplay();
     }
 
     /**
@@ -76,9 +76,13 @@ public class ClockDisplay
     /**
      * Update the internal string that represents the display.
      */
-    private void updateDisplay()
+    private void get12HourInternalDisplay()
     {
-        displayString = hours.getDisplayValue() + ":" + 
+        int hour = hours.getValue();
+        if (hour == 0) {
+            hour = 12;
+        }
+        displayString = hour + ":" + 
                         minutes.getDisplayValue();
     }
 }
