@@ -26,9 +26,9 @@ public class ClockDisplay
     {
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
-        get12HourInternalDisplay();
+        updateDisplay();
     }
-    
+
     /**
      * Constructor for ClockDisplay objects. This constructor
      * creates a new clock set at the time specified by the 
@@ -40,7 +40,7 @@ public class ClockDisplay
         minutes = new NumberDisplay(60);
         setTime(hour, minute);
     }
-    
+
     /**
      * This method should get called once every minute - it makes
      * the clock display go one minute forward.
@@ -51,7 +51,7 @@ public class ClockDisplay
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
         }
-        get12HourInternalDisplay();
+        updateDisplay();
     }
 
     /**
@@ -62,7 +62,7 @@ public class ClockDisplay
     {
         hours.setValue(hour);
         minutes.setValue(minute);
-        get12HourInternalDisplay();
+        updateDisplay();
     }
 
     /**
@@ -76,18 +76,9 @@ public class ClockDisplay
     /**
      * Update the internal string that represents the display.
      */
-    private void get12HourInternalDisplay()
+    private void updateDisplay()
     {
-        int hour = hours.getValue();
-        String ending = "AM";
-        if (hour >= 12) { 
-            hour = hour - 12;
-            ending = "PM";
-        }
-        if (hour == 0) {
-            hour = 12;
-        }
-        displayString = hour + ":" + 
-                        minutes.getDisplayValue() + " " + ending;
+        displayString = hours.getDisplayValue() + ":" + 
+                        minutes.getDisplayValue();
     }
 }
